@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Regular Expression</string>
+    <string name="tab_text_1">match</string>
+    <string name="tab_text_2">replace</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Clear all fields</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
