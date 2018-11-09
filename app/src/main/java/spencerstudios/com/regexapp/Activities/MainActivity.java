@@ -1,4 +1,4 @@
-package spencerstudios.com.regexapp;
+package spencerstudios.com.regexapp.Activities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 
 import spencerstudios.com.regexapp.Fragments.MatchFragment;
 import spencerstudios.com.regexapp.Fragments.ReplaceFragment;
+import spencerstudios.com.regexapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,29 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    void exitDialog(){
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        builder.setTitle("Exit App");
+        builder.setMessage("Are you sure you want to close this application?");
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "Yes, exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    public void onBackPressed(){
+        exitDialog();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -54,29 +78,6 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
             return 2;
         }
-    }
-
-    void exitDialog(){
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        builder.setTitle("Exit App");
-        builder.setMessage("Are you sure you want to close this application?");
-        builder.setButton(DialogInterface.BUTTON_POSITIVE, "Yes, exit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        });
-        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                builder.dismiss();
-            }
-        });
-        builder.show();
-    }
-
-    public void onBackPressed(){
-        exitDialog();
     }
 
     /*
