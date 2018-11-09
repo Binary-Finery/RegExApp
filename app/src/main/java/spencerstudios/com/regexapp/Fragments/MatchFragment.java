@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -13,12 +12,10 @@ import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -30,9 +27,9 @@ import spencerstudios.com.regexapp.R;
 public class MatchFragment extends Fragment implements TextWatcher {
 
     EditText etInput, etRegEx;
-    TextView tvRes, tvOccurrences;
-    int c_one = Color.parseColor("#a5d6a7");
-    int c_two = Color.parseColor("#81c784");
+    TextView tvResult, tvQtyOfMatches;
+    int spannable_background_color_one = Color.parseColor("#a5d6a7");
+    int spannable_background_color_two = Color.parseColor("#81c784");
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,8 +37,8 @@ public class MatchFragment extends Fragment implements TextWatcher {
         View v = inflater.inflate(R.layout.frag_match, container, false);
         etInput = v.findViewById(R.id.et_input_string);
         etRegEx = v.findViewById(R.id.et_input_regex);
-        tvRes = v.findViewById(R.id.tv_result);
-        tvOccurrences = v.findViewById(R.id.tv_occurrences);
+        tvResult = v.findViewById(R.id.tv_result);
+        tvQtyOfMatches = v.findViewById(R.id.tv_occurrences);
         etInput.addTextChangedListener(this);
         etRegEx.addTextChangedListener(this);
         return v;
@@ -58,19 +55,19 @@ public class MatchFragment extends Fragment implements TextWatcher {
                 while (matcher.find()) {
                     occurrences++;
                     swap++;
-                    span.setSpan(new BackgroundColorSpan(swap % 2 == 0 ? c_one : c_two), matcher.start(), matcher.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    span.setSpan(new BackgroundColorSpan(swap % 2 == 0 ? spannable_background_color_one : spannable_background_color_two), matcher.start(), matcher.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     span.setSpan(new StyleSpan(Typeface.BOLD), matcher.start(), matcher.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 String match = occurrences == 1 ? "match" : "matches";
-                tvOccurrences.setText(String.format(Locale.getDefault(), "%d %s", occurrences, match));
-                tvRes.setText(span);
+                tvQtyOfMatches.setText(String.format(Locale.getDefault(), "%d %s", occurrences, match));
+                tvResult.setText(span);
             } catch (Exception e) {
-                tvRes.setText("");
-                tvOccurrences.setText("");
+                tvResult.setText("");
+                tvQtyOfMatches.setText("");
             }
         } else {
-            tvRes.setText("");
-            tvOccurrences.setText("");
+            tvResult.setText("");
+            tvQtyOfMatches.setText("");
         }
     }
 
